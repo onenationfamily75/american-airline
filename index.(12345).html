@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Submit a passenger care claim." />
+    <title>American Airlines | Passenger Care</title>
+    <style>
+      :root {
+        --navy: #123f63;
+        --navy-dark: #0d3453;
+        --green: #68e08e;
+        --green-dark: #23755f;
+        --paper: #f4f8f7;
+        --ink: #153f39;
+        --muted: #6a8580;
+        --line: #d5e2df;
+        --white: #ffffff;
+        --danger: #a84646;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button,
+      select {
+        cursor: pointer;
+      }
+
+      .site-header {
+        height: 74px;
+        display: flex;
+        align-items: center;
+        background: var(--white);
+      }
+
+      .header-inner,
+      .hero-inner,
+      .claim-section {
+        width: min(calc(100% - 48px), 1216px);
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #174e46;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        color: #fff;
+        background: #154d44;
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 14px;
+        font-weight: 850;
+        letter-spacing: 0.2em;
+        line-height: 1;
+      }
+
+      .brand-subtitle {
+        display: block;
+        margin-top: 7px;
+        color: #5c817a;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+      }
+
+      .secure-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        color: #4d746e;
+        font-size: 14px;
+      }
+
+      .icon {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.8;
+      }
+
+      .hero {
+        color: #fff;
+        background: var(--navy);
+      }
+
+      .hero-inner {
+        min-height: 554px;
+        padding: 96px 0 104px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(360px, 0.9fr);
+        align-items: center;
+        gap: 86px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 30px;
+        padding: 8px 17px;
+        border: 1px solid rgba(222, 245, 237, 0.3);
+        border-radius: 999px;
+        color: #d8ede8;
+        background: rgba(213, 242, 233, 0.11);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 700px;
+        font-size: clamp(46px, 5vw, 70px);
+        font-weight: 800;
+        letter-spacing: -0.055em;
+        line-height: 0.98;
+      }
+
+      h1 span {
+        color: var(--green);
+      }
+
+      .hero-copy {
+        max-width: 560px;
+        margin-top: 28px;
+        color: #cadde5;
+        font-size: 19px;
+        line-height: 1.5;
+      }
+
+      .needs-card {
+        padding: 35px 36px 31px;
+        border: 1px solid rgba(223, 244, 242, 0.24);
+        border-radius: 24px;
+        background: rgba(223, 244, 242, 0.11);
+      }
+
+      .kicker {
+        color: #77dfa0;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+      }
+
+      .needs-list {
+        margin: 29px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .needs-list li {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        color: #d6e4e9;
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .needs-list li + li {
+        margin-top: 19px;
+      }
+
+      .step {
+        color: #6cdf98;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+      }
+
+      .claim-section {
+        padding: 78px 0 100px;
+        display: grid;
+        grid-template-columns: minmax(280px, 0.82fr) minmax(480px, 1.5fr);
+        gap: 78px;
+        align-items: start;
+      }
+
+      .intro {
+        padding-top: 18px;
+      }
+
+      .intro .kicker {
+        color: #3f877a;
+      }
+
+      h2 {
+        margin-top: 15px;
+        font-size: 32px;
+        letter-spacing: -0.045em;
+        line-height: 1.08;
+      }
+
+      .intro-copy {
+        max-width: 360px;
+        margin-top: 22px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .privacy-note {
+        max-width: 390px;
+        margin-top: 35px;
+        padding: 19px 20px;
+        display: flex;
+        gap: 13px;
+        border-radius: 15px;
+        color: #397466;
+        background: #dff5e9;
+      }
+
+      .privacy-note .icon {
+        color: #27a36e;
+        margin-top: 1px;
+      }
+
+      .privacy-note strong {
+        display: block;
+        margin-bottom: 4px;
+        color: #246b5e;
+        font-size: 14px;
+      }
+
+      .privacy-note span {
+        display: block;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .claim-form {
+        padding: 40px;
+        border: 1px solid #d9e5e3;
+        border-radius: 28px;
+        background: var(--white);
+        box-shadow: 0 22px 54px rgba(25, 61, 55, 0.08);
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px 20px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: inline-flex;
+        margin-bottom: 10px;
+        color: #153f39;
+        font-size: 16px;
+        font-weight: 750;
+      }
+
+      .required {
+        margin-left: 6px;
+        color: var(--danger);
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        outline: none;
+        color: var(--ink);
+        background: #fff;
+        box-shadow: 0 2px 2px rgba(20, 70, 62, 0.04);
+        transition: border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      input,
+      select {
+        height: 58px;
+        padding: 0 19px;
+      }
+
+      textarea {
+        min-height: 150px;
+        padding: 16px 19px;
+        resize: vertical;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #91a09f;
+      }
+
+      select {
+        appearance: none;
+        padding-right: 48px;
+        background-image: linear-gradient(45deg, transparent 50%, #4d736d 50%), linear-gradient(135deg, #4d736d 50%, transparent 50%);
+        background-position: calc(100% - 22px) 25px, calc(100% - 16px) 25px;
+        background-size: 6px 6px, 6px 6px;
+        background-repeat: no-repeat;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #4bbf85;
+        box-shadow: 0 0 0 4px rgba(98, 225, 140, 0.14);
+      }
+
+      .file-drop {
+        position: relative;
+        display: flex;
+        align-items: center;
+        min-height: 81px;
+        padding: 14px 18px;
+        border: 1px dashed #afc9c4;
+        border-radius: 14px;
+        color: #6e8884;
+        background: #fbfdfd;
+      }
+
+      .file-drop input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .file-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        pointer-events: none;
+      }
+
+      .file-content .icon {
+        color: #2d9b78;
+      }
+
+      .file-copy strong,
+      .file-copy span {
+        display: block;
+      }
+
+      .file-copy strong {
+        color: #306b61;
+        font-size: 14px;
+      }
+
+      .file-copy span {
+        margin-top: 3px;
+        color: #819793;
+        font-size: 12px;
+      }
+
+      .form-footer {
+        margin-top: 28px;
+        padding-top: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-top: 1px solid #edf2f1;
+      }
+
+      .legal {
+        max-width: 360px;
+        color: #738c89;
+        font-size: 12px;
+        line-height: 1.55;
+      }
+
+      .submit-button {
+        min-width: 164px;
+        min-height: 53px;
+        padding: 0 24px;
+        border: 0;
+        border-radius: 999px;
+        color: #083a35;
+        background: var(--green);
+        font-size: 15px;
+        font-weight: 800;
+        box-shadow: 0 10px 20px rgba(67, 182, 112, 0.2);
+        transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+      }
+
+      .submit-button:hover {
+        background: #7aeaa0;
+        box-shadow: 0 13px 24px rgba(67, 182, 112, 0.27);
+        transform: translateY(-1px);
+      }
+
+      .form-status {
+        display: none;
+        margin-top: 20px;
+        padding: 15px 17px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .form-status.success,
+      .form-status.error {
+        display: block;
+      }
+
+      .form-status.success {
+        color: #1e6a54;
+        background: #e3f7ea;
+      }
+
+      .form-status.error {
+        color: #8d3e3e;
+        background: #fdeaea;
+      }
+
+      .form-status a {
+        font-weight: 700;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .claim-section {
+          grid-template-columns: 1fr;
+          gap: 42px;
+        }
+
+        .hero-inner {
+          min-height: auto;
+          padding: 70px 0 76px;
+        }
+
+        .claim-section {
+          padding-top: 58px;
+        }
+
+        .intro {
+          padding-top: 0;
+        }
+
+        .intro-copy,
+        .privacy-note {
+          max-width: 620px;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .header-inner,
+        .hero-inner,
+        .claim-section {
+          width: calc(100% - 32px);
+        }
+
+        .site-header {
+          height: 68px;
+        }
+
+        .secure-label {
+          font-size: 0;
+        }
+
+        .secure-label .icon {
+          width: 20px;
+          height: 20px;
+        }
+
+        h1 {
+          font-size: 47px;
+        }
+
+        .hero-copy {
+          font-size: 17px;
+        }
+
+        .needs-card {
+          padding: 27px 23px;
+        }
+
+        .claim-form {
+          padding: 25px 20px;
+          border-radius: 21px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+          gap: 22px;
+        }
+
+        .field.full {
+          grid-column: auto;
+        }
+
+        .form-footer {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .legal {
+          max-width: none;
+        }
+
+        .submit-button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#" aria-label="American Airlines passenger care home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span>
+            <span class="brand-name">AMERICAN</span>
+            <span class="brand-subtitle">AIRLINES</span>
+          </span>
+        </a>
+        <span class="secure-label">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+            <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+            <path d="M12 14v2"></path>
+          </svg>
+          Secure claim support
+        </span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-inner">
+          <div>
+            <div class="eyebrow">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m3 15 7-3 8.5-7.5a1.8 1.8 0 0 1 2.5 2.5L13.5 15 11 21l-2-5-6-1Z"></path>
+                <path d="m14 8 2 2"></path>
+              </svg>
+              Passenger care
+            </div>
+            <h1 id="page-title">Tell us what happened. <span>We’ll take it from here.</span></h1>
+            <p class="hero-copy">Submit your travel-related claim in a few minutes. Include your booking details and any supporting documents so our team can review it quickly.</p>
+          </div>
+
+          <aside class="needs-card" aria-label="What you will need">
+            <div class="kicker">What you’ll need</div>
+            <ol class="needs-list">
+              <li><span class="step">01</span><span>Your booking reference and travel date</span></li>
+              <li><span class="step">02</span><span>A clear description of the issue</span></li>
+              <li><span class="step">03</span><span>Optional receipts or boarding passes</span></li>
+            </ol>
+          </aside>
+        </div>
+      </section>
+
+      <section class="claim-section" aria-labelledby="claim-heading">
+        <div class="intro">
+          <div class="kicker">Claims center</div>
+          <h2 id="claim-heading">Start your claim</h2>
+          <p class="intro-copy">All fields marked with an asterisk are required. We’ll use your contact details for follow-up about this claim.</p>
+
+          <div class="privacy-note">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+              <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+              <path d="M12 14v2"></path>
+            </svg>
+            <span><strong>Your information is protected.</strong>Documents are securely attached to your claim record for review.</span>
+          </div>
+        </div>
+
+        <form class="claim-form" id="claim-form">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="passenger-name">Passenger name <span class="required">*</span></label>
+              <input id="passenger-name" name="Passenger name" type="text" autocomplete="name" placeholder="Your full name" required />
+            </div>
+
+            <div class="field">
+              <label for="contact-email">Contact email <span class="required">*</span></label>
+              <input id="contact-email" name="Contact email" type="email" autocomplete="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="field">
+              <label for="phone">Passenger phone number <span class="required">*</span></label>
+              <input id="phone" name="Passenger phone number" type="tel" autocomplete="tel" placeholder="+1 (555) 555-5555" required />
+            </div>
+
+            <div class="field">
+              <label for="booking-reference">Booking reference <span class="required">*</span></label>
+              <input id="booking-reference" name="Booking reference" type="text" placeholder="e.g. ABC123" required />
+            </div>
+
+            <div class="field">
+              <label for="claim-type">Claim type <span class="required">*</span></label>
+              <select id="claim-type" name="Claim type" required>
+                <option value="" selected disabled>Select a claim type</option>
+                <option>Delayed flight</option>
+                <option>Cancelled flight</option>
+                <option>Lost or damaged baggage</option>
+                <option>Baggage fee refund</option>
+                <option>Refund request</option>
+                <option>Travel disruption expense</option>
+                <option>Other travel issue</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="travel-date">Travel date <span class="required">*</span></label>
+              <input id="travel-date" name="Travel date" type="date" required />
+            </div>
+
+            <div class="field full">
+              <label for="description">Claim description <span class="required">*</span></label>
+              <textarea id="description" name="Claim description" minlength="10" placeholder="Please describe what happened and what support you are requesting." required></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="supporting-document">Supporting document <span style="margin-left: 6px; color: #82918f; font-size: 13px; font-weight: 500">(optional)</span></label>
+              <div class="file-drop">
+                <input id="supporting-document" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" />
+                <div class="file-content">
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path>
+                    <path d="M14 2v6h6M8 13h8M8 17h5"></path>
+                  </svg>
+                  <span class="file-copy"><strong id="file-label">Choose a file</strong><span>PDF, JPG, PNG, or WEBP up to 8 MB.</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <p class="legal">By submitting, you confirm that the information provided is accurate.</p>
+            <button class="submit-button" type="submit">Submit claim</button>
+          </div>
+          <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("claim-form");
+      const fileInput = document.getElementById("supporting-document");
+      const fileLabel = document.getElementById("file-label");
+      const status = document.getElementById("form-status");
+
+      fileInput.addEventListener("change", () => {
+        fileLabel.textContent = fileInput.files[0]?.name || "Choose a file";
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const file = fileInput.files[0];
+        if (file && file.size > 8 * 1024 * 1024) {
+          status.className = "form-status error";
+          status.textContent = "That file is larger than 8 MB. Please choose a smaller document and try again.";
+          return;
+        }
+
+        const value = (name) => form.elements[name].value.trim();
+        const attachment = file
+          ? `Selected document: ${file.name} (please attach it to the email before sending).`
+          : "No supporting document selected.";
+        const subject = `Passenger care claim — ${value("Booking reference")}`;
+        const body = [
+          "Passenger care claim",
+          "",
+          `Passenger name: ${value("Passenger name")}`,
+          `Contact email: ${value("Contact email")}`,
+          `Passenger phone number: ${value("Passenger phone number")}`,
+          `Booking reference: ${value("Booking reference")}`,
+          `Claim type: ${value("Claim type")}`,
+          `Travel date: ${value("Travel date")}`,
+          "",
+          "Claim description:",
+          value("Claim description"),
+          "",
+          attachment
+        ].join("\n");
+        const mailto = `mailto:americanaircustomerserviceteam@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        window.location.href = mailto;
+        status.className = "form-status success";
+        status.innerHTML = `Your email draft should now be open. If it did not open, <a href="${mailto}">click here to open it</a>.`;
+      });
+    </script>
+  </body>
+</html>
